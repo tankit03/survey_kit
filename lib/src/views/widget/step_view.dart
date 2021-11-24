@@ -57,19 +57,21 @@ class StepView extends StatelessWidget {
             )
           : Container(),
       actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextButton(
-            child: Text(
-              'Cancel',
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            onPressed: () =>
-                surveyController.closeSurvey(context, resultFunction),
-          ),
-        ),
+        false
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  onPressed: () =>
+                      surveyController.closeSurvey(context, resultFunction),
+                ),
+              )
+            : Container(),
       ],
     );
   }
@@ -86,15 +88,18 @@ class StepView extends StatelessWidget {
               },
             )
           : Container(),
-      trailing: GestureDetector(
-        child: Text(
-          'Cancel',
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-        onTap: () => surveyController.closeSurvey(context, resultFunction),
-      ),
+      trailing: false
+          ? GestureDetector(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              onTap: () =>
+                  surveyController.closeSurvey(context, resultFunction),
+            )
+          : Container(),
     );
   }
 
