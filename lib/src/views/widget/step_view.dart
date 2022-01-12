@@ -57,7 +57,7 @@ class StepView extends StatelessWidget {
             )
           : Container(),
       actions: [
-        false
+        true
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
@@ -88,7 +88,7 @@ class StepView extends StatelessWidget {
               },
             )
           : Container(),
-      trailing: false
+      trailing: true
           ? GestureDetector(
               child: Text(
                 'Cancel',
