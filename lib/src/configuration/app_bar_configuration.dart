@@ -10,6 +10,9 @@ class AppBarConfiguration {
     required this.canBack,
     required this.showProgress,
     this.leading,
-    this.trailing,
+    this.trailing = const SizedBox(
+      height: 0,
+      width: 0,
+    ),
   });
 }
