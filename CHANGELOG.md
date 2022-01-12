@@ -1,3 +1,21 @@
+# 0.0.21
+- BREAKING: Adapated text styles to to TextThemes - You can find a complete list in the README.md
+
+# 0.0.20
+- BREAKING: Value identifier for Single-/Multiplechoice answers is now the value
+- BREAKING: You now have to close the survey yourself when finished in onResult
+- BREAKING: Remove video player step for now because of dependency issues (If you rely on it use https://github.com/quickbirdstudios/survey_kit.git)
+
+- FEATURE: Progressbar
+- FEATURE: Transition between questions
+- FEATURE: Localization of text
+
+- BUGFIX: isOptional Flag works now as expected
+- BUGFIX: Textinput does not spit text in half anymore
+- BUGFIX: Text in Single-/Multiplechoice answers does now break the same if selected or unselected
+
+- INFO: Updated dependencies
+
 # 0.0.12
 - FEATURE: Video-Step
 

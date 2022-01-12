@@ -77,3 +77,9 @@ export 'src/task/task_not_defined_exception.dart';
 export 'src/steps/step_not_defined_exception.dart';
 export 'src/navigator/rules/rule_not_defined_exception.dart';
 export 'src/steps/predefined_steps/answer_format_not_defined_exception.dart';
+
+export 'src/widget/survey_progress_configuration.dart';
+export 'src/widget/survey_progress.dart';
+export 'src/views/widget/survey_app_bar.dart';
+
+export 'src/configuration/app_bar_configuration.dart';
