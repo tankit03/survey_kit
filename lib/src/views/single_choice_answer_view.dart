@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:survey_kit/src/answer_format/single_choice_answer_format.dart';
 import 'package:survey_kit/src/answer_format/text_choice.dart';
 import 'package:survey_kit/src/views/widget/selection_list_tile.dart';
@@ -44,13 +43,14 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
         id: widget.questionStep.stepIdentifier,
         startDate: _startDate,
         endDate: DateTime.now(),
-        valueIdentifier: _selectedChoice?.text ?? '',
+        valueIdentifier: _selectedChoice?.value ?? '',
         result: _selectedChoice,
       ),
+      isValid: widget.questionStep.isOptional || _selectedChoice != null,
       title: widget.questionStep.title.isNotEmpty
           ? Text(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headline2,
               textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
@@ -62,9 +62,7 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
               padding: const EdgeInsets.only(bottom: 32.0),
               child: Text(
                 widget.questionStep.text,
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -78,9 +76,12 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
                     return SelectionListTile(
                       text: tc.text,
                       onTap: () {
-                        setState(() {
+                        if (_selectedChoice == tc) {
+                          _selectedChoice = null;
+                        } else {
                           _selectedChoice = tc;
-                        });
+                        }
+                        setState(() {});
                       },
                       isSelected: _selectedChoice == tc,
                     );

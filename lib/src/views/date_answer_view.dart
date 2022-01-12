@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:survey_kit/src/answer_format/date_answer_format.dart';
@@ -55,10 +54,11 @@ class _DateAnswerViewState extends State<DateAnswerView> {
         valueIdentifier: _result?.toIso8601String() ?? 'none',
         result: _result,
       ),
+      isValid: widget.questionStep.isOptional || _result != null,
       title: widget.questionStep.title.isNotEmpty
           ? Text(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headline2,
               textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
@@ -68,9 +68,7 @@ class _DateAnswerViewState extends State<DateAnswerView> {
             padding: const EdgeInsets.only(bottom: 32.0),
             child: Text(
               widget.questionStep.text,
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
+              style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.center,
             ),
           ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:survey_kit/survey_kit.dart';
@@ -34,6 +35,11 @@ class _MyAppState extends State<MyApp> {
                       print(result.finishReason);
                     },
                     task: task,
+                    showProgress: true,
+                    localizations: {
+                      'cancel': 'Cancel',
+                      'next': 'Next',
+                    },
                     themeData: Theme.of(context).copyWith(
                       colorScheme: ColorScheme.fromSwatch(
                         primarySwatch: Colors.cyan,
@@ -47,14 +53,20 @@ class _MyAppState extends State<MyApp> {
                         iconTheme: IconThemeData(
                           color: Colors.cyan,
                         ),
-                        textTheme: TextTheme(
-                          button: TextStyle(
-                            color: Colors.cyan,
-                          ),
+                        titleTextStyle: TextStyle(
+                          color: Colors.cyan,
                         ),
                       ),
                       iconTheme: const IconThemeData(
                         color: Colors.cyan,
+                      ),
+                      textSelectionTheme: TextSelectionThemeData(
+                        cursorColor: Colors.cyan,
+                        selectionColor: Colors.cyan,
+                        selectionHandleColor: Colors.cyan,
+                      ),
+                      cupertinoOverrideTheme: CupertinoThemeData(
+                        primaryColor: Colors.cyan,
                       ),
                       outlinedButtonTheme: OutlinedButtonThemeData(
                         style: ButtonStyle(
@@ -107,6 +119,32 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                       ),
+                      textTheme: TextTheme(
+                        headline2: TextStyle(
+                          fontSize: 28.0,
+                          color: Colors.black,
+                        ),
+                        headline5: TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.black,
+                        ),
+                        bodyText2: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.black,
+                        ),
+                        subtitle1: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                      inputDecorationTheme: InputDecorationTheme(
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    surveyProgressbarConfiguration: SurveyProgressConfiguration(
+                      backgroundColor: Colors.white,
                     ),
                   );
                 }
@@ -168,6 +206,7 @@ class _MyAppState extends State<MyApp> {
         QuestionStep(
           title: 'Known allergies',
           text: 'Do you have any allergies that we should be aware of?',
+          isOptional: false,
           answerFormat: MultipleChoiceAnswerFormat(
             textChoices: [
               TextChoice(text: 'Penicillin', value: 'Penicillin'),
@@ -180,6 +219,7 @@ class _MyAppState extends State<MyApp> {
         QuestionStep(
           title: 'Done?',
           text: 'We are done, do you mind to tell us more about yourself?',
+          isOptional: true,
           answerFormat: SingleChoiceAnswerFormat(
             textChoices: [
               TextChoice(text: 'Yes', value: 'Yes'),
