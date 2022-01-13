@@ -35,7 +35,8 @@ class SurveyAppBar extends StatelessWidget {
                 },
               )
           : Container(),
-      title: _showProgress ? SurveyProgress() : SizedBox.shrink(),
+      // title: _showProgress ? SurveyProgress() : SizedBox.shrink(),
+      title: SizedBox.shrink(),
       trailingActions: [
         TextButton(
           child: appBarConfiguration.trailing ??

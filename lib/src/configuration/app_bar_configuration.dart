@@ -8,7 +8,7 @@ class AppBarConfiguration {
 
   const AppBarConfiguration({
     required this.canBack,
-    required this.showProgress,
+    this.showProgress = false,
     this.leading,
     this.trailing = const SizedBox(
       height: 0,
