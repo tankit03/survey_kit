@@ -178,13 +178,17 @@ class _SurveyPageState extends State<SurveyPage>
               controller: tabController,
               children: state.steps
                   .map(
-                    (e) => Container(
-                      key: ValueKey<String>(
-                        e.stepIdentifier.id,
-                      ),
-                      child: e.createView(
-                        questionResult: state.questionResults.firstWhereOrNull(
-                          (element) => element.id == e.stepIdentifier,
+                    (e) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        key: ValueKey<String>(
+                          e.stepIdentifier.id,
+                        ),
+                        child: e.createView(
+                          questionResult:
+                              state.questionResults.firstWhereOrNull(
+                            (element) => element.id == e.stepIdentifier,
+                          ),
                         ),
                       ),
                     ),
