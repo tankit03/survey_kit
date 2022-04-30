@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:survey_kit/src/configuration/app_bar_configuration.dart';
@@ -8,10 +9,15 @@ import 'package:provider/provider.dart';
 class SurveyAppBar extends StatelessWidget {
   final AppBarConfiguration appBarConfiguration;
   final SurveyController? controller;
+  final bool? popSurvey;
+  final Widget Function(BuildContext topContext, BuildContext context)?
+      confirmExitDialog;
 
   const SurveyAppBar({
     required this.appBarConfiguration,
+    this.popSurvey,
     this.controller,
+    this.confirmExitDialog,
   });
 
   @override
@@ -20,21 +26,40 @@ class SurveyAppBar extends StatelessWidget {
     // appBarConfiguration.showProgress ?? context.read<bool>();
     final _canGoBack = appBarConfiguration.canBack ?? true;
 
+    final topContext = context;
+
     final surveyController = controller ?? context.read<SurveyController>();
     return PlatformAppBar(
-      leading: _canGoBack
-          ? appBarConfiguration.leading ??
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: () {
-                  surveyController.stepBack(
-                    context: context,
-                  );
-                },
-              )
-          : Container(),
+      leading: (popSurvey != null && popSurvey!)
+          ? IconButton(
+              icon: Icon(
+                CupertinoIcons.back,
+              ),
+              onPressed: () {
+                if (confirmExitDialog != null) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return confirmExitDialog!(topContext, context);
+                      });
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+            )
+          : (_canGoBack
+              ? appBarConfiguration.leading ??
+                  IconButton(
+                    icon: Icon(
+                      CupertinoIcons.back,
+                    ),
+                    onPressed: () {
+                      surveyController.stepBack(
+                        context: context,
+                      );
+                    },
+                  )
+              : Container()),
       // title: _showProgress ? SurveyProgress() : SizedBox.shrink(),
       title: SizedBox.shrink(),
       trailingActions: [

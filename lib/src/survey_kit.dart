@@ -33,6 +33,10 @@ class SurveyKit extends StatefulWidget {
   /// The appbar that is shown at the top
   final Widget Function(AppBarConfiguration appBarConfiguration)? appBar;
 
+  /// A function which returns a dialog widget, which confirms exit of survey
+  final Widget Function(BuildContext topContext, BuildContext context)?
+      confirmExitDialog;
+
   /// If the progressbar shoud be show in the appbar
   final bool? showProgress;
 
@@ -47,6 +51,7 @@ class SurveyKit extends StatefulWidget {
     this.themeData,
     this.surveyController,
     this.appBar,
+    this.confirmExitDialog,
     this.showProgress,
     this.surveyProgressbarConfiguration,
     this.localizations,
@@ -106,6 +111,7 @@ class _SurveyKitState extends State<SurveyKit> {
             length: widget.task.steps.length,
             onResult: widget.onResult,
             appBar: widget.appBar,
+            confirmExitDialog: widget.confirmExitDialog,
           ),
         ),
       ),
@@ -117,11 +123,14 @@ class SurveyPage extends StatefulWidget {
   final int length;
   final Widget Function(AppBarConfiguration appBarConfiguration)? appBar;
   final Function(SurveyResult) onResult;
+  final Widget Function(BuildContext topContext, BuildContext context)?
+      confirmExitDialog;
 
   const SurveyPage({
     required this.length,
     required this.onResult,
     this.appBar,
+    this.confirmExitDialog,
   });
 
   @override
@@ -170,6 +179,8 @@ class _SurveyPageState extends State<SurveyPage>
                         ? widget.appBar!.call(state.appBarConfiguration)
                         : SurveyAppBar(
                             appBarConfiguration: state.appBarConfiguration,
+                            popSurvey: state.currentStep.isFirst,
+                            confirmExitDialog: widget.confirmExitDialog,
                           ),
                   )
                 : null,

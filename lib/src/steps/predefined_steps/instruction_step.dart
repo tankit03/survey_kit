@@ -11,11 +11,13 @@ part 'instruction_step.g.dart';
 class InstructionStep extends Step {
   final String title;
   final String text;
+  bool? isFirst;
 
   InstructionStep({
     required this.title,
     required this.text,
     bool isOptional = false,
+    this.isFirst = null,
     String buttonText = 'Next',
     StepIdentifier? stepIdentifier,
     bool? canGoBack,
@@ -37,8 +39,8 @@ class InstructionStep extends Step {
     );
   }
 
-  factory InstructionStep.fromJson(Map<String, dynamic> json) =>
-      _$InstructionStepFromJson(json);
+  factory InstructionStep.fromJson(Map<String, dynamic> json, bool? isFirst) =>
+      _$InstructionStepFromJson(json, isFirst);
   Map<String, dynamic> toJson() => _$InstructionStepToJson(this);
 
   bool operator ==(o) =>

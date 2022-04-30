@@ -11,6 +11,7 @@ abstract class Step {
   final StepIdentifier stepIdentifier;
   @JsonKey(defaultValue: false)
   final bool isOptional;
+  bool? isFirst;
   @JsonKey(defaultValue: 'Next')
   final String? buttonText;
   final bool canGoBack;
@@ -20,6 +21,7 @@ abstract class Step {
   Step({
     StepIdentifier? stepIdentifier,
     this.isOptional = false,
+    this.isFirst = null,
     this.buttonText = 'Next',
     this.canGoBack = true,
     this.showProgress = true,
@@ -31,7 +33,8 @@ abstract class Step {
   factory Step.fromJson(Map<String, dynamic> json) {
     final type = json['type'];
     if (type == 'intro') {
-      return InstructionStep.fromJson(json);
+      // counting this ALWAYS as first step
+      return InstructionStep.fromJson(json, true);
     } else if (type == 'question') {
       return QuestionStep.fromJson(json);
     } else if (type == 'completion') {
